@@ -113,3 +113,72 @@ headers = str_sub(email, end = breaks[,1])
 bodies = str_sub(email, start = breaks[,2])
 
 cat(bodies[6])
+
+
+## Lab Page 2
+
+## 1. Create the following vector of strings in R:
+## fruit <- c("apple", "banana", "pear", "pinapple")
+
+fruit <- c("apple", "banana", "pear", "pinapple")
+
+## 2. Run the following lines of code to try to understand what's happening:
+
+str_detect(fruit, "a")
+# this detects if the pattern is found
+
+str_detect(fruit, "^a")
+# this denotes a starts with a
+
+str_detect(fruit, "a$")
+# this looks for any fruits that end in an a
+
+str_detect(fruit, "[aeiou]")
+# this looks for any of the vowels in the fruit -- do any of the fruits have any one of the vowels? the []
+# represent the or
+
+str_detect(fruit, "[a-d]")
+# this looks at whether or not the fruit has any of the letters between a-d
+
+str_detect(fruit, "[0-9]")
+# this looks at whether or not the fruits have a number
+
+## 3. Using regular expressions, write down a line of R code to detect which of the fruits starts with an
+## "a" and ends with an "e". The following table might help:
+
+str_detect(fruit, "^a[a-z]e$")
+
+str_detect(fruit, "^a[a-z]*e$")
+## this could be any character or number
+
+## 4. Create a parse that detects phone numbers of this format 213 740 4826
+
+phone = "213 740 4826"
+
+str_detect(phone, "[0-9]{3} [0-9]{3} [0-9]{4}")
+
+# the curly brackets detects the number of characters -- this returns true to show that the phone number
+# does in fact follow that pattern
+
+## Now let's add the way a phone number might be written with dashes Let's check our code to see
+## if our phone numbers exhibit these two patterns:
+
+phone = c("213 740 4826",
+          "213-740-4826")
+
+str_detect(phone, "[0-9]{3}[ -][0-9]{3}[ -][0-9]{4}")
+
+## Now let's add the final way a phone number might be written with parentheses. Let's check our code to see
+## if our phone numbers exhibit these three patterns.
+
+phone = c("213 740 4826",
+          "213-740-4826",
+          "(213) 740 4826")
+
+str_detect(phone, "[(][0-9]{3}[)]?[ -][0-9]{3}[ -][0-9]{4}")
+
+## 5. How are phone numbers formatted? Look at the body of the messages 10 and 18 in the emails dataset.
+## Create a parser that detects those formats of phone numbers.
+
+str_extract_all(bodies,"[(][0-9]{3}[)]?[ -][0-9]{3}[ -][0-9]{4}")
+
